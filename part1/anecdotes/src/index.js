@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
+const Header = ({header}) => <h1>{header}</h1>
+
 const randomNumber = () => {
     return (
         Math.floor(Math.random() * 6)
@@ -31,12 +33,24 @@ const App = (props) => {
         setVotes(copy);
     }
 
+    const mostVotes = () => {
+        return (
+            votes.indexOf(Math.max(...votes))
+        )
+    }
+
     return (
         <div>
+            <Header header="Anecdote of the day" />
             <div>{props.anecdotes[selected]}</div>
             <DisplayVotes votes={votes[selected]} />
             <Button text="vote" event={voteFor}/>
             <Button text="next anecdote" event={() => setSelected(randomNumber())}/>
+
+            <Header header="Anecdote with the most votes" />
+            <div>{props.anecdotes[mostVotes()]}</div>
+            <DisplayVotes votes={votes[mostVotes()]} />
+
         </div>
     )
 }
