@@ -6,14 +6,25 @@ const App = () => {
     ]) 
     const [ newName, setNewName ] = useState('')
 
-    const displayAll = () => persons.forEach(p => <p>{p}</p>)
+    const displayAll = () => persons.map((person,i) => {
+      return (
+        <p key={i}>{person.name}</p>
+      )
+    })
   
-    const addNewPerson = () => {
-        const person = {
-            name: {newName}
+    const addNewPerson = (event) => {
+        event.preventDefault()
+        if (persons.some(person => person.name === newName)){
+          alert(`${newName} is already added`)
         }
-        setPersons(persons.concat(person));
-        setNewName('');
+        else {
+          const person = {
+              name: newName
+          }
+          setPersons(persons.concat(person))
+          console.log(persons)
+          setNewName('');
+      }
     }
     const handleChange = (event) => {
         setNewName(event.target.value)
@@ -26,7 +37,7 @@ const App = () => {
             name: <input value={newName} onChange={handleChange} />
           </div>
           <div>
-            <button type="submit"> add</button>
+            <button type="submit">add</button>
           </div>
         </form>
         <h2>Numbers</h2>
