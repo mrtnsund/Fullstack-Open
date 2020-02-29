@@ -3,8 +3,20 @@ import React, {useState} from 'react'
 const App = () => {
     const [ persons, setPersons] = useState([
       { 
-        name: 'Arto Hellas',
-        number: '12345678'
+        name: 'Morten',
+        number: 41596565
+      },
+      {
+        name: 'Hanna',
+        number: 95261243
+      },
+      {
+        name: 'Espen',
+        number: 28384334
+      },
+      {
+        name: 'Ingrid',
+        number: 43842823
       }
     ]) 
     const [ newName, setNewName ] = useState('')
