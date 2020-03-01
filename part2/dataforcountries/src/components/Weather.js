@@ -3,18 +3,20 @@ import axios from 'axios'
 
 const Weather = ({country}) => {
     const [weather, setWeather] = useState([])
+
     useEffect(() => {
         axios
-        .get("http://api.weatherstack.com/current?access_key=c4791db67d1a63f4f06e447d047e3b05&query=" + country.capital)
+        .get("https://api.openweathermap.org/data/2.5/weather?q="+country.capital+"&APPID=a85717f57b6bd30e011747de59dc3a60&units=metric")
         .then(response => {
-            setWeather(response.data)
+            setWeather(response.data.weather[0])
         })
     }, [country])
     console.log(weather)
     return (
         <div>
             
-        </div>
+            <p>{weather.description}</p>
+            </div>
     )
 }
 
