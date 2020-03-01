@@ -1,0 +1,24 @@
+{
+    "persons":[
+      { 
+        "name": "Morten", 
+        "number": "41596565",
+        "id": 1
+      },
+      { 
+        "name": "Hanna", 
+        "number": "95261243",
+        "id": 2
+      },
+      { 
+        "name": "Espen", 
+        "number": "12-43-234345",
+        "id": 3
+      },
+      { 
+        "name": "Ingrid", 
+        "number": "39-23-6423122",
+        "id": 4
+      }
+    ]
+  }

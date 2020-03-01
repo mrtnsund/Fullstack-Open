@@ -1,27 +1,22 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const App = () => {
-    const [ persons, setPersons] = useState([
-      { 
-        name: 'Morten',
-        number: 41596565
-      },
-      {
-        name: 'Hanna',
-        number: 95261243
-      },
-      {
-        name: 'Espen',
-        number: 28384334
-      },
-      {
-        name: 'Ingrid',
-        number: 43842823
-      }
-    ]) 
+    const [ persons, setPersons] = useState([]) 
     const [ newName, setNewName ] = useState('')
     const [ newNumber, setNewNumber ] = useState('')
     const [ filter, setFilter ] = useState('')
+
+    useEffect(() => {
+      console.log('effect')
+      axios
+        .get('http://localhost:3001/persons')
+        .then(response => {
+          console.log('promise fulfilled')
+          setPersons(response.data)
+        })
+    }, [])
+    console.log('render', persons.length, 'people')
 
     const numbersToDisplay = (filter.length===0) 
       ? persons
