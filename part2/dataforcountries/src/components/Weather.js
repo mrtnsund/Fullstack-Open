@@ -11,13 +11,14 @@ const Weather = ({country}) => {
             setWeather(response.data.weather[0])
         })
     }, [country])
-    console.log(weather)
+    var iconurl = "http://openweathermap.org/img/w/" + weather.icon + ".png";
     return (
         <div>
             
+            <img src={iconurl} alt="icon" />
             <p>{weather.description}</p>
+
             </div>
     )
 }
-
 export default Weather
