@@ -20,7 +20,7 @@ const App = () => {
 
     const numbersToDisplay = (filter.length===0) 
       ? persons
-      : persons.filter(person => person.name.includes(filter))
+      : persons.filter(person => person.name.toLowerCase().includes(filter.toLowerCase()))
 
     const displayAll = () => numbersToDisplay.map((person,i) => {
       return (
