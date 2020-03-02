@@ -22,12 +22,13 @@ const App = () => {
     ? persons
     : persons.filter(person => person.name.toLowerCase().includes(filter.toLowerCase()))
 
-  const displayAll = () => numbersToDisplay.map(person => {
+  const displayAll = () => numbersToDisplay.map((person, i) => {
     return (
       <Person
-        key={person.id}
+        key={i}
         person={person}
-        deleteOnClick={() => deletePerson(person.id)} />
+        onSubmit={() => deletePerson(person.id)}
+        />      
     )
   })
 
