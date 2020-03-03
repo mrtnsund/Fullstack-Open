@@ -66,14 +66,13 @@ const App = () => {
   const updateNumber = (props) => {
     const personToBeUpdated = persons.find(p => p.name === props.name);
     const changedPerson = { name: personToBeUpdated.name, number: props.number}
-    const index = persons.indexOf(personToBeUpdated)
 
     personService
       .update(personToBeUpdated.id,changedPerson)
       .then(person => {
-        setPersons(persons.splice(index,1))
-        setPersons(persons.concat(person))
+        setPersons(persons => persons.filter(person => person.id !== personToBeUpdated.id))
       })
+      setPersons(persons.concat(changedPerson))
     
   }
 
