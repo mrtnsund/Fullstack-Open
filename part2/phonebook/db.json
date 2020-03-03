@@ -1,9 +1,3 @@
 {
-  "persons": [
-    {
-      "name": "Morten Sund",
-      "number": "41596565",
-      "id": 1
-    }
-  ]
+  "persons": []
 }

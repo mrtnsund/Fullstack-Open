@@ -78,9 +78,13 @@ const App = () => {
       .update(personToBeUpdated.id,changedPerson)
       .then(person => {
         setPersons(persons => persons.filter(person => person.id !== personToBeUpdated.id))
+        setPersons(persons.concat(changedPerson))
+        setNotification(`Changed ${changedPerson.name}`)
       })
-      setPersons(persons.concat(changedPerson))
-      setNotification(`Changed ${changedPerson.name}`)
+      .catch(error => {
+        setNotification(`${changedPerson.name} is already removed from server`)
+      })
+
     
   }
 
