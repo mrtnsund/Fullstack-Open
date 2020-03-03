@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react'
+//Components
 import Person from './components/Person'
+import Notification from './components/Notification'
+//Service
 import personService from './services/persons'
+
 
 
 
@@ -9,6 +13,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
+  const [notification, setNotification] = useState(null)
 
   useEffect(() => {
     personService
@@ -50,6 +55,7 @@ const App = () => {
           setPersons(persons.concat(newPerson))
           setNewName('')
           setNewNumber('')
+          setNotification(`Added ${newPerson.name}`)
         })
     }
   }
@@ -61,6 +67,7 @@ const App = () => {
         .then(
             setPersons(persons => persons.filter(person => person.id !== id))
           )
+          setNotification(`Deleted ${personToDelete.name}`)
     }
   }
   const updateNumber = (props) => {
@@ -73,6 +80,7 @@ const App = () => {
         setPersons(persons => persons.filter(person => person.id !== personToBeUpdated.id))
       })
       setPersons(persons.concat(changedPerson))
+      setNotification(`Changed ${changedPerson.name}`)
     
   }
 
@@ -91,6 +99,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={notification} />
       <div>
         filter shown with: <input value={filter} onChange={handleChangeFilter} />
       </div>
