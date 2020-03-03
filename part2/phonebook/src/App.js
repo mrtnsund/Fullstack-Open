@@ -59,8 +59,8 @@ const App = () => {
       personService
         .deleteEntry(id)
         .then(
-          setPersons(persons.map(person => person.id !== id))
-        )
+            setPersons(persons => persons.filter(person => person.id !== id))
+          )
     }
   }
   const updateNumber = (props) => {
