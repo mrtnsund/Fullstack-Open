@@ -56,6 +56,9 @@ const App = () => {
           setNewName('')
           setNewNumber('')
           setNotification(`Added ${newPerson.name}`)
+          setTimeout(() => {
+            setNotification(null)
+          }, 3000)
         })
     }
   }
@@ -68,6 +71,9 @@ const App = () => {
             setPersons(persons => persons.filter(person => person.id !== id))
           )
           setNotification(`Deleted ${personToDelete.name}`)
+          setTimeout(() => {
+            setNotification(null)
+          }, 3000)
     }
   }
   const updateNumber = (props) => {
@@ -80,9 +86,15 @@ const App = () => {
         setPersons(persons => persons.filter(person => person.id !== personToBeUpdated.id))
         setPersons(persons.concat(changedPerson))
         setNotification(`Changed ${changedPerson.name}`)
+        setTimeout(() => {
+          setNotification(null)
+        }, 3000)
       })
       .catch(error => {
         setNotification(`${changedPerson.name} is already removed from server`)
+        setTimeout(() => {
+          setNotification(null)
+        }, 3000)
       })
 
     

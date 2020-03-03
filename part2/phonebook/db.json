@@ -1,3 +1,19 @@
 {
-  "persons": []
+  "persons": [
+    {
+      "name": "Morten Sund",
+      "number": "41596565",
+      "id": 1
+    },
+    {
+      "name": "Hanna Brodersen",
+      "number": "95261243",
+      "id": 2
+    },
+    {
+      "name": "Per Viskeler",
+      "number": "12345678",
+      "id": 3
+    }
+  ]
 }
