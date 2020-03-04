@@ -1,7 +1,7 @@
-POST http://localhost:3001/api/persons
+POST https://powerful-river-89202.herokuapp.com/api/persons
 Content-Type: application/json
 
 {
-    "name": "fsdf",
+    "name": "Mark Zuck",
     "number": 234234
 }

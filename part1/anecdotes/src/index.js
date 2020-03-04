@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
-const Header = ({header}) => <h1>{header}</h1>
+const Header = ( {header} ) => <h1>{header}</h1>
 
-const randomNumber = () => {
+const randomNumber = () => { 
     return (
         Math.floor(Math.random() * 6)
     )
@@ -16,12 +16,16 @@ const Button = (props) => {
 }
 
 const DisplayVotes = (props) => {
+    console.log(
+        
+    )
     return (
         <div>
             {props.votes} votes
         </div>
     )
 }
+
 
 const App = (props) => {
     const [selected, setSelected] = useState(0);
