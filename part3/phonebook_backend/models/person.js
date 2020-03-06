@@ -24,7 +24,7 @@ const personSchema = mongoose.Schema({
         type: Number,
         required: true,
         unique: true,
-        min: 100000000,
+        min: 10000000,
         max: 99999999,
     }
 })

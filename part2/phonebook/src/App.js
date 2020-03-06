@@ -64,7 +64,7 @@ const App = () => {
           }, 3000)
         })
         .catch(error => {
-          setNotification(`${error.response.data}`)
+          setNotification(`${error}`)
           setTimeout(() => {
             setNotification(null)
           }, 3000)
@@ -132,8 +132,7 @@ const App = () => {
 
 
       <h2>Numbers</h2>
-      <Persons display={displayAll()} />
-
+      {displayAll()}
     </div>
   )
 }
