@@ -90,9 +90,9 @@ const App = () => {
     const changedPerson = { name: personToBeUpdated.name, number: props.number}
 
     personService
-      .update(personToBeUpdated.id,changedPerson)
+      .update(personToBeUpdated.name,changedPerson)
       .then(person => {
-        setPersons(persons => persons.filter(person => person.id !== personToBeUpdated.id))
+        setPersons(persons => persons.filter(person => person.name !== personToBeUpdated.name))
         setPersons(persons.concat(changedPerson))
         setNotification(`Changed ${changedPerson.name}`)
         setTimeout(() => {
