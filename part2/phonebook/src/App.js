@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react'
 //Components
 import Person from './components/Person'
 import Notification from './components/Notification'
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
+import Persons from './components/Persons'
 //Service
 import personService from './services/persons'
 
@@ -61,7 +64,7 @@ const App = () => {
           }, 3000)
         })
     }
-  }
+  } 
   const deletePerson = (id) => {
     const personToDelete = persons.find(p => p.id === id)
     if (window.confirm(`Do you want to delete ${personToDelete.name}?`)) {
@@ -116,23 +119,15 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
       <Notification message={notification} />
-      <div>
-        filter shown with: <input value={filter} onChange={handleChangeFilter} />
-      </div>
+      <Filter onChange={handleChangeFilter} value={filter} />
+
       <h2>add a new</h2>
-      <form onSubmit={addNewPerson}>
-        <div>
-          name: <input value={newName} onChange={handleChangeName} />
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={handleChangeNumber} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <PersonForm onSubmit={addNewPerson} valueName={newName} onChangeName={handleChangeName} valueNumber={newNumber} onChangeNumber={handleChangeNumber} />
+
+
       <h2>Numbers</h2>
-      {displayAll()}
+      <Persons display={displayAll()} />
+
     </div>
   )
 }
