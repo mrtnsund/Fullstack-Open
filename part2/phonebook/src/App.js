@@ -64,7 +64,7 @@ const App = () => {
           }, 3000)
         })
         .catch(error => {
-          setNotification(`${error}`)
+          setNotification(`${error.response.data.error}`)
           setTimeout(() => {
             setNotification(null)
           }, 3000)
