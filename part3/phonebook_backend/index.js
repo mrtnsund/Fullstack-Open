@@ -6,6 +6,7 @@ const cors = require('cors')
 const app = express()
 const Person = require('./models/person')
 
+
 app.use(cors())
 app.use(express.static('build'))
 app.use(bodyParser.json())
@@ -34,7 +35,7 @@ app.get('/api/persons/:id', (req, res, next) => {
     })
     .catch(error => next(error))
 })
-app.post('/api/persons', (req, res) => {
+app.post('/api/persons', (req, res, next) => {
     const body = req.body
     if (!body.name || !body.number){
         return res.status(400).json({
@@ -44,13 +45,14 @@ app.post('/api/persons', (req, res) => {
         const person = new Person({
             name: body.name,
             number: body.number,
-            id: Math.floor(Math.random()*999999)
         })
         person.save().then(savedPerson => {
             res.json(savedPerson.toJSON())
         })
+        .catch(error => next(error))
     }
 })
+
 app.put('/api/persons/:id', (request, response, next) => {
     const body = request.body
 
@@ -58,6 +60,7 @@ app.put('/api/persons/:id', (request, response, next) => {
         name: body.name,
         number: body.number,
     }
+
     Person.findByIdAndUpdate(request.params.id, { new: true }, person)
     .then(updatedPerson => {
         response.json(updatedPerson.toJSON())
@@ -65,7 +68,7 @@ app.put('/api/persons/:id', (request, response, next) => {
     .catch(error => next(error))
 })
 
-app.delete('/api/persons/:id', (req, res) => {
+app.delete('/api/persons/:id', (req, res, next) => {
     Person.findByIdAndRemove(req.params.id)
     .then(result => {
         res.status(204).end()
@@ -89,6 +92,8 @@ const errorHandler = (error, request, response, next) => {
     console.error(error.message)
     if(error.name === 'CastError' && error.kind === 'ObjectId'){
         return response.status(400).send({ error: 'malformatted id' })
+    } else if (error.name === 'ValidationError'){
+        return response.status(400).json({ error: error.message })
     }
     next(error)
 }

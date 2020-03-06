@@ -9,12 +9,13 @@ const Notification = ({message}) => {
              {message}
         </div> 
         )
-    } 
+    } else {
     return (
         <div className="delete">
             {message}
         </div>
     )
+    }
 }
 
 export default Notification
