@@ -55,22 +55,18 @@ app.post('/api/persons', (req, res, next) => {
 
 app.put('/api/persons/:id', (request, response, next) => {
     const body = request.body
-
+    
     const person = {
         name: body.name,
         number: body.number,
     }
 
-    Person.findOneAndUpdate(
-            { name: name },
-            { $set: { name: body.name } },
-            { new: true }, 
-            { runValidators: true }, 
-        )
-    .then(updatedPerson => {
-        response.json(updatedPerson.toJSON())
-    })
-    .catch(error => next(error))
+    Person.findByIdAndUpdate(request.params.id, person, { new:true, runValidators:true })
+        .then(updatedPerson => {
+            response.json(updatedPerson.toJSON())
+        })
+        .catch(error => next(error))
+
 })
 
 app.delete('/api/persons/:id', (req, res, next) => {

@@ -4,7 +4,6 @@ import Person from './components/Person'
 import Notification from './components/Notification'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
-// import Persons from './components/Persons'
 //Service
 import personService from './services/persons'
 
@@ -85,26 +84,39 @@ const App = () => {
           }, 3000)
     }
   }
-  const updateNumber = (props) => {
-    const personToBeUpdated = persons.find(p => p.name === props.name);
-    const changedPerson = { name: personToBeUpdated.name, number: props.number}
+  const updateNumber = (person) => {
+    const personToBeUpdated = persons.find(p => p.name === person.name);
+
+
+    const changedPerson = { 
+      name: person.name, 
+      number: Number(person.number),
+      id: personToBeUpdated.id
+    }
 
     personService
-      .update(personToBeUpdated.id,changedPerson)
-      .then(person => {
-        setPersons(persons => persons.filter(person => person.id !== personToBeUpdated.id))
-        setPersons(persons.concat(changedPerson))
+      .update(personToBeUpdated.id, changedPerson)
+      .then(updatedPerson => {
+
+        setPersons(persons => persons.filter(p => p.name !== personToBeUpdated.name))
+        console.log('persons1', persons)
+
+        setPersons(persons => persons.concat(changedPerson))
+      
+
         setNotification(`Changed ${changedPerson.name}`)
         setTimeout(() => {
           setNotification(null)
         }, 3000)
+
       })
       .catch(error => {
-        setNotification(`${changedPerson.name} is already removed from server`)
+        setNotification(`${error.response.data.error}`)
         setTimeout(() => {
           setNotification(null)
         }, 3000)
       })
+
 
     
   }
@@ -132,7 +144,12 @@ const App = () => {
 
 
       <h2>Numbers</h2>
-      {displayAll()}
+      <table>
+        <tbody>
+        {displayAll()}
+
+        </tbody>
+      </table>
     </div>
   )
 }

@@ -1,9 +1,18 @@
 import React from 'react'
 const Person = (props) => {
     return (
-        <div id={props.person.id}>
-             {props.person.name} {props.person.number} <button onClick={props.onSubmit}>delete</button>
-        </div>
+
+                    <tr>
+                    <td>
+                        {props.person.name} 
+                    </td>
+                    <td>{
+                        props.person.number} 
+                    </td>
+                    <td>
+                        <button onClick={props.onSubmit}>delete</button>
+                    </td>
+                    </tr>
     )
 }
 
