@@ -4,7 +4,7 @@ import Person from './components/Person'
 import Notification from './components/Notification'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
-import Persons from './components/Persons'
+// import Persons from './components/Persons'
 //Service
 import personService from './services/persons'
 
@@ -90,9 +90,9 @@ const App = () => {
     const changedPerson = { name: personToBeUpdated.name, number: props.number}
 
     personService
-      .update(personToBeUpdated.name,changedPerson)
+      .update(personToBeUpdated.id,changedPerson)
       .then(person => {
-        setPersons(persons => persons.filter(person => person.name !== personToBeUpdated.name))
+        setPersons(persons => persons.filter(person => person.id !== personToBeUpdated.id))
         setPersons(persons.concat(changedPerson))
         setNotification(`Changed ${changedPerson.name}`)
         setTimeout(() => {

@@ -61,11 +61,11 @@ app.put('/api/persons/:id', (request, response, next) => {
         number: body.number,
     }
 
-    Person.findByIdAndUpdate(
-            request.params.id, 
+    Person.findOneAndUpdate(
+            { name: name },
+            { $set: { name: body.name } },
             { new: true }, 
             { runValidators: true }, 
-            person
         )
     .then(updatedPerson => {
         response.json(updatedPerson.toJSON())
