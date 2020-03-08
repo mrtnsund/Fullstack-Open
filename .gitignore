@@ -24,4 +24,4 @@ yarn-error.log*
 
 /demo/*
 Token.js
-/part3/hello/*
+/part3/notes_backend/*
