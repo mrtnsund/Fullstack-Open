@@ -19,16 +19,16 @@ const favoriteBlog = (blogs) => {
 }
 const mostBlogs = (blogs) => {
   let mostBlogs = blogs[0]
-  let map = new Map()
+  // let map = new Map()
 
-  blogs.forEach(blog => {
-    console.log(blog)
-    if (!map.has(blog.author)){
-      map.set(blog, 0)
-    } else {
-      map.set(blog, (map.get(blog) + 1))
-    }
-  })
+  // blogs.forEach(blog => {
+  //   console.log(blog)
+  //   if (!map.has(blog.author)){
+  //     map.set(blog, 0)
+  //   } else {
+  //     map.set(blog, (map.get(blog) + 1))
+  //   }
+  // })
   return mostBlogs
 }
 
