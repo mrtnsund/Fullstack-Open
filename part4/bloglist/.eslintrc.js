@@ -12,5 +12,6 @@ module.exports = {
     "no-console": 0,
     "no-empty": [1, { "allowEmptyCatch": true }]
   },
-  "extends": "eslint:recommended"
+  "extends": "eslint:recommended",
+  "parser": "babel-eslint"
 }

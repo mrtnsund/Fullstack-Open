@@ -61,9 +61,9 @@ describe('most votes', () => {
   })
 
 })
-describe('most blogs', () => {
-  test('most blogs has most blogs', () => {
-    const result = listHelper.mostBlogs(listWithMoreBlogs)
-    expect(result.author).toBe('Morten')
-  })
-})
+// describe('most blogs', () => {
+//   test('most blogs has most blogs', () => {
+//     const result = listHelper.mostBlogs(listWithMoreBlogs)
+//     expect(result.author).toBe('Morten')
+//   })
+// })
