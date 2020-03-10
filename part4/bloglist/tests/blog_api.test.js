@@ -2,29 +2,10 @@ const mongoose = require('mongoose')
 const supertest = require('supertest')
 const helper = require('./test_helper')
 const app = require('../app')
+
 const api = supertest(app)
 const Blog = require('../models/blog')
 
-// const initialBlogs = [
-//   {
-//     title: "Mortens testblogg",
-//     author: "Morten Sund",
-//     url: "www.example.com",
-//     likes: 10,
-//   },
-//   {
-//     title: "Per Viskelers testblogg",
-//     author: "Per Viskeler",
-//     url: "www.per-v.com",
-//     likes: 0,
-//   },
-//   {
-//     title: "Bloggen om livet",
-//     author: "Atle Patle",
-//     url: "www.livet.no",
-//     likes: 0,
-//   },
-// ]
 beforeEach(async () => {
   await Blog.deleteMany({})
 
@@ -47,7 +28,7 @@ describe('content of blogs', () => {
 
   test('all blogs are returned', async () => {
     const response = await api.get('/bloglist/api/blogs')
-    
+
     expect(response.body.length).toBe(helper.initialBlogs.length)
   })
 
@@ -59,11 +40,11 @@ describe('content of blogs', () => {
 
   test('a specific blog is within the returned blogs', async () => {
     const response = await api.get('/bloglist/api/blogs')
-    
-    const blogs = response.body.map(b => b.title)
-    
+
+    const blogs = response.body.map((b) => b.title);
+
     expect(blogs).toContain(
-      'Bloggen om livet'
+      'Bloggen om livet',
     )
   })
 })
@@ -71,31 +52,30 @@ describe('content of blogs', () => {
 describe('functionality of backend', () => {
   test('a valid blog can be added', async () => {
     const newBlog = {
-      title: "Funksjonsbloggen",
-      author: "Helsinkigutten",
-      url: "function.com",
+      title: 'Funksjonsbloggen',
+      author: 'Helsinkigutten',
+      url: 'function.com',
       likes: 0,
     }
 
     await api
       .post('/bloglist/api/blogs')
       .send(newBlog)
-      .expect(201)
+      .expect(200)
       .expect('Content-Type', /application\/json/)
 
     const blogsAtEnd = await helper.blogsInDb()
     expect(blogsAtEnd.length).toBe(helper.initialBlogs.length + 1)
 
-    const contents = blogsAtEnd.map(b => b.title)
+    const contents = blogsAtEnd.map((b) => b.title)
     expect(contents).toContain(
-      'Funksjonsbloggen'
+      'Funksjonsbloggen',
     )
-
   })
 
   test('a blog without author is not added', async () => {
     const newBlog = {
-      url: "vvv.vvv.v"
+      url: 'vvv.vvv.v',
     }
 
     await api
@@ -108,9 +88,25 @@ describe('functionality of backend', () => {
     expect(blogsAtEnd.length).toBe(helper.initialBlogs.length)
   })
 
+  test('a blog can be deleted by id', async () => {
+    const blogsAtStart = await helper.blogsInDb()
+    const blogToDelete = blogsAtStart[0]
+    
+    await api
+      .delete(`/bloglist/api/blogs/${blogToDelete.id}`)
+      .expect(204)
+
+    const blogsAtEnd = await helper.blogsInDb()
+
+    expect(blogsAtEnd.length).toBe(
+      blogsAtStart.length - 1
+    )
+
+    const ids = blogsAtEnd.map(b => b.id)
+    expect(ids).not.toContain(blogToDelete.id)
+  })
 })
 
 afterAll(() => {
   mongoose.connection.close()
 })
-

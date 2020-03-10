@@ -10,8 +10,10 @@ module.exports = {
   },
   "rules": {
     "no-console": 0,
-    "no-empty": [1, { "allowEmptyCatch": true }]
+    "no-empty": [1, { "allowEmptyCatch": true }],
+    "linebreak-style": 0,
+    "semi": 0,
   },
-  "extends": "eslint:recommended",
-  "parser": "babel-eslint"
+  "extends": "airbnb",
+  "parser": "babel-eslint",
 }

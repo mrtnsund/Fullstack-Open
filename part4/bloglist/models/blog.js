@@ -3,14 +3,14 @@ const mongoose = require('mongoose')
 const blogSchema = mongoose.Schema({
   title: {
     type: String,
-    required: true
+    required: true,
   },
   author: {
     type: String,
     required: true,
   },
   url: String,
-  likes: Number
+  likes: Number,
 })
 
 blogSchema.set('toJSON', {
@@ -18,7 +18,7 @@ blogSchema.set('toJSON', {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
     delete returnedObject.__v
-  }
+  },
 })
 
 module.exports = mongoose.model('Blog', blogSchema)

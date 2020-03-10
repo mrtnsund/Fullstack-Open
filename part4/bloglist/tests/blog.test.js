@@ -2,42 +2,41 @@ const listHelper = require('../utils/list_helper')
 
 const listWithMoreBlogs = [
   {
-    title: "Morten",
-    author: "Mikel",
-    url: "mrtnsund.dev",
-    likes: 5
+    title: 'Morten',
+    author: 'Mikel',
+    url: 'mrtnsund.dev',
+    likes: 5,
   },
   {
-    title: "Morten",
-    author: "Morten",
-    url: "mrtnsund.dev",
-    likes: 5
+    title: 'Morten',
+    author: 'Morten',
+    url: 'mrtnsund.dev',
+    likes: 5,
   },
   {
-    title: "Morten",
-    author: "Morten",
-    url: "mrtnsund.dev",
-    likes: 5
+    title: 'Morten',
+    author: 'Morten',
+    url: 'mrtnsund.dev',
+    likes: 5,
   },
   {
-    title: "Morten med mest likes",
-    author: "Morten",
-    url: "mrtnsund.dev",
-    likes: 8
-  }
+    title: 'Morten med mest likes',
+    author: 'Morten',
+    url: 'mrtnsund.dev',
+    likes: 8,
+  },
 ]
 const emptyList = []
 const listWithOneBlog = [
   {
-    title: "Morten",
-    author: "Morten",
-    url: "mrtnsund.dev",
-    likes: 5
-  }
+    title: 'Morten',
+    author: 'Morten',
+    url: 'mrtnsund.dev',
+    likes: 5,
+  },
 ]
 
 describe('total likes', () => {
-
   test('of empty list is zero', () => {
     const result = listHelper.totalLikes(emptyList)
     expect(result).toBe(0)
@@ -54,12 +53,10 @@ describe('total likes', () => {
   })
 })
 describe('most votes', () => {
-
   test('most votes is favorited', () => {
     const result = listHelper.favoriteBlog(listWithMoreBlogs)
     expect(result.title).toBe('Morten med mest likes')
   })
-
 })
 // describe('most blogs', () => {
 //   test('most blogs has most blogs', () => {

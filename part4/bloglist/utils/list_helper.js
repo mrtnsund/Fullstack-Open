@@ -1,24 +1,27 @@
 // const lodash = require('lodash')
 
 const totalLikes = (blogs) => {
-  let sum = 0
-  if (blogs.length === 0){
+  const sum = 0
+  if (blogs.length === 0) {
     return sum
-  } else {
-    return blogs.reduce((prev, cur) => prev + cur.likes, 0)
   }
+  return blogs.reduce((prev, cur) => prev + cur.likes, 0)
 }
 const favoriteBlog = (blogs) => {
-  let biggestBlog = blogs[0]
-  for (let i in blogs){
-    if (blogs[i].likes > biggestBlog.likes){
+  let listOfBlogs = blogs
+  let biggestBlog = listOfBlogs[0]
+
+  for (const i in listOfBlogs) {
+    if (blogs[i].likes > biggestBlog.likes) {
       biggestBlog = blogs[i]
     }
   }
   return biggestBlog
 }
 const mostBlogs = (blogs) => {
-  let mostBlogs = blogs[0]
+  const authorWithMostBlogs = blogs[0]
+
+  // todo
   // let map = new Map()
 
   // blogs.forEach(blog => {
@@ -29,11 +32,11 @@ const mostBlogs = (blogs) => {
   //     map.set(blog, (map.get(blog) + 1))
   //   }
   // })
-  return mostBlogs
+  return authorWithMostBlogs
 }
 
 module.exports = {
   totalLikes,
   favoriteBlog,
-  mostBlogs
+  mostBlogs,
 }
