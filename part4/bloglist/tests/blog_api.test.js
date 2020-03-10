@@ -1,39 +1,40 @@
 const mongoose = require('mongoose')
 const supertest = require('supertest')
+const helper = require('./test_helper')
 const app = require('../app')
 const api = supertest(app)
 const Blog = require('../models/blog')
 
-const initialBlogs = [
-  {
-    title: "Mortens testblogg",
-    author: "Morten Sund",
-    url: "www.example.com",
-    likes: 10,
-  },
-  {
-    title: "Per Viskelers testblogg",
-    author: "Per Viskeler",
-    url: "www.per-v.com",
-    likes: 0,
-  },
-  {
-    title: "Bloggen om livet",
-    author: "Atle Patle",
-    url: "www.livet.no",
-    likes: 0,
-  },
-]
+// const initialBlogs = [
+//   {
+//     title: "Mortens testblogg",
+//     author: "Morten Sund",
+//     url: "www.example.com",
+//     likes: 10,
+//   },
+//   {
+//     title: "Per Viskelers testblogg",
+//     author: "Per Viskeler",
+//     url: "www.per-v.com",
+//     likes: 0,
+//   },
+//   {
+//     title: "Bloggen om livet",
+//     author: "Atle Patle",
+//     url: "www.livet.no",
+//     likes: 0,
+//   },
+// ]
 beforeEach(async () => {
   await Blog.deleteMany({})
 
-  let blogObject = new Blog(initialBlogs[0])
+  let blogObject = new Blog(helper.initialBlogs[0])
   await blogObject.save()
 
-  blogObject = new Blog(initialBlogs[1])
+  blogObject = new Blog(helper.initialBlogs[1])
   await blogObject.save()
 
-  blogObject = new Blog(initialBlogs[2])
+  blogObject = new Blog(helper.initialBlogs[2])
   await blogObject.save()
 })
 describe('content of blogs', () => {
@@ -44,10 +45,10 @@ describe('content of blogs', () => {
       .expect('Content-Type', /application\/json/)
   })
 
-  test('there are three blogs', async () => {
+  test('all blogs are returned', async () => {
     const response = await api.get('/bloglist/api/blogs')
     
-    expect(response.body.length).toBe(3)
+    expect(response.body.length).toBe(helper.initialBlogs.length)
   })
 
   test('first blog is written by morten sund', async () => {
@@ -82,11 +83,10 @@ describe('functionality of backend', () => {
       .expect(201)
       .expect('Content-Type', /application\/json/)
 
-    const response = await api.get('/bloglist/api/blogs')
+    const blogsAtEnd = await helper.blogsInDb()
+    expect(blogsAtEnd.length).toBe(helper.initialBlogs.length + 1)
 
-    const contents = response.body.map(b => b.title)
-
-    expect(response.body.length).toBe(initialBlogs.length + 1)
+    const contents = blogsAtEnd.map(b => b.title)
     expect(contents).toContain(
       'Funksjonsbloggen'
     )
