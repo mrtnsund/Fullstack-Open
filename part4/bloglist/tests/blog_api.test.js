@@ -93,7 +93,20 @@ describe('functionality of backend', () => {
 
   })
 
-  
+  test('a blog without author is not added', async () => {
+    const newBlog = {
+      url: "vvv.vvv.v"
+    }
+
+    await api
+      .post('/bloglist/api/blogs')
+      .send(newBlog)
+      .expect(400)
+
+    const blogsAtEnd = await helper.blogsInDb()
+
+    expect(blogsAtEnd.length).toBe(helper.initialBlogs.length)
+  })
 
 })
 
