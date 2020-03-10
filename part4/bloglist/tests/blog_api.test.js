@@ -9,15 +9,12 @@ const Blog = require('../models/blog')
 beforeEach(async () => {
   await Blog.deleteMany({})
 
-  let blogObject = new Blog(helper.initialBlogs[0])
-  await blogObject.save()
-
-  blogObject = new Blog(helper.initialBlogs[1])
-  await blogObject.save()
-
-  blogObject = new Blog(helper.initialBlogs[2])
-  await blogObject.save()
+  for (let blog of helper.initialBlogs){
+    let blogObject = new Blog(blog)
+    await blogObject.save()
+  }
 })
+
 describe('content of blogs', () => {
   test('blogs are returned as json', async () => {
     await api
@@ -55,7 +52,6 @@ describe('functionality of backend', () => {
       title: 'Funksjonsbloggen',
       author: 'Helsinkigutten',
       url: 'function.com',
-      likes: 0,
     }
 
     await api
@@ -116,6 +112,27 @@ describe('functionality of backend', () => {
 
     const ids = blogsAtEnd.map(b => b.id)
     expect(ids).not.toContain(blogToDelete.id)
+  })
+
+  test('a blog without likes is initialized to zero', async () => {
+    const blogsAtStart = await helper.blogsInDb()
+    const newBlog = {
+      title: 'Hanna B',
+      author: 'Hanna Brodersen',
+      url: 'www.v.www'
+    }
+
+    await api
+      .post('/bloglist/api/blogs')
+      .send(newBlog)
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+
+    const blogsAtEnd = await helper.blogsInDb()
+    expect(blogsAtStart.length).toEqual(blogsAtEnd.length - 1)
+
+    const blogs = await helper.blogsInDb()
+    expect(blogs[blogs.length-1].likes).toEqual(0)
   })
 })
 
