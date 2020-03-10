@@ -8,10 +8,10 @@ const totalLikes = (blogs) => {
   return blogs.reduce((prev, cur) => prev + cur.likes, 0)
 }
 const favoriteBlog = (blogs) => {
-  let listOfBlogs = blogs
-  let biggestBlog = listOfBlogs[0]
+  let biggestBlog = blogs[0]
 
-  for (const i in listOfBlogs) {
+  // eslint-disable-next-line no-restricted-syntax
+  for (const i in blogs) {
     if (blogs[i].likes > biggestBlog.likes) {
       biggestBlog = blogs[i]
     }

@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-await-in-loop */
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const helper = require('./test_helper')
@@ -9,8 +11,8 @@ const Blog = require('../models/blog')
 beforeEach(async () => {
   await Blog.deleteMany({})
 
-  for (let blog of helper.initialBlogs){
-    let blogObject = new Blog(blog)
+  for (const blog of helper.initialBlogs) {
+    const blogObject = new Blog(blog)
     await blogObject.save()
   }
 })
@@ -99,7 +101,7 @@ describe('functionality of backend', () => {
   test('a blog can be deleted by id', async () => {
     const blogsAtStart = await helper.blogsInDb()
     const blogToDelete = blogsAtStart[0]
-    
+
     await api
       .delete(`/bloglist/api/blogs/${blogToDelete.id}`)
       .expect(204)
@@ -107,10 +109,10 @@ describe('functionality of backend', () => {
     const blogsAtEnd = await helper.blogsInDb()
 
     expect(blogsAtEnd.length).toBe(
-      blogsAtStart.length - 1
+      blogsAtStart.length - 1,
     )
 
-    const ids = blogsAtEnd.map(b => b.id)
+    const ids = blogsAtEnd.map((b) => b.id)
     expect(ids).not.toContain(blogToDelete.id)
   })
 
@@ -119,7 +121,7 @@ describe('functionality of backend', () => {
     const newBlog = {
       title: 'Hanna B',
       author: 'Hanna Brodersen',
-      url: 'www.v.www'
+      url: 'www.v.www',
     }
 
     await api
@@ -132,15 +134,15 @@ describe('functionality of backend', () => {
     expect(blogsAtStart.length).toEqual(blogsAtEnd.length - 1)
 
     const blogs = await helper.blogsInDb()
-    expect(blogs[blogs.length-1].likes).toEqual(0)
+    expect(blogs[blogs.length - 1].likes).toEqual(0)
   })
 
   test('existing blog can be edited', async () => {
     const blogsAtStart = await helper.blogsInDb()
-    const blog = blogsAtStart[blogsAtStart.length-1]
+    const blog = blogsAtStart[blogsAtStart.length - 1]
     const editedBlog = {
       ...blog,
-      likes: 5
+      likes: 5,
     }
 
     await api
@@ -148,14 +150,12 @@ describe('functionality of backend', () => {
       .send(editedBlog)
       .expect(200)
       .expect('Content-Type', /application\/json/)
-    
+
     const blogsAtEnd = await helper.blogsInDb()
-    const lastBlog = blogsAtEnd[blogsAtEnd.length-1]
+    const lastBlog = blogsAtEnd[blogsAtEnd.length - 1]
 
     expect(blogsAtStart.length).toEqual(blogsAtEnd.length)
-    
     expect(blog.likes).not.toEqual(lastBlog.likes)
-
   })
 })
 

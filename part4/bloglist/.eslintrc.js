@@ -13,6 +13,7 @@ module.exports = {
     "no-empty": [1, { "allowEmptyCatch": true }],
     "linebreak-style": 0,
     "semi": 0,
+    "consistent-return": 0,
   },
   "extends": "airbnb",
   "parser": "babel-eslint",
