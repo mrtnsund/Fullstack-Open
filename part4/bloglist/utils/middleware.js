@@ -17,6 +17,11 @@ const errorHandler = (error, request, response, next) => {
   next(error)
 }
 
+const tokenExtractor = (request, response, next) => {
+  const token = request.get('authorization')
+  request.token = token.substring(7)
+  next()
+}
 // const tokenExtractor = (request, response, next) => {
 //   const authorization = request.get('authorization')
 //   console.log(authorization)
@@ -27,5 +32,5 @@ const errorHandler = (error, request, response, next) => {
 // }
 
 module.exports = {
-  unknownEndpoint, errorHandler, 
+  unknownEndpoint, errorHandler, tokenExtractor,
 }
