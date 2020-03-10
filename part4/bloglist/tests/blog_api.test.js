@@ -88,6 +88,18 @@ describe('functionality of backend', () => {
     expect(blogsAtEnd.length).toBe(helper.initialBlogs.length)
   })
 
+  test('a specific blog can be viewed', async () => {
+    const blogs = await helper.blogsInDb()
+    const blogToView = blogs[0]
+
+    const viewedBlog = await api
+      .get(`/bloglist/api/blogs/${blogToView.id}`)
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+
+    expect(viewedBlog.body).toEqual(blogToView)
+  })
+
   test('a blog can be deleted by id', async () => {
     const blogsAtStart = await helper.blogsInDb()
     const blogToDelete = blogsAtStart[0]
