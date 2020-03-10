@@ -134,6 +134,29 @@ describe('functionality of backend', () => {
     const blogs = await helper.blogsInDb()
     expect(blogs[blogs.length-1].likes).toEqual(0)
   })
+
+  test('existing blog can be edited', async () => {
+    const blogsAtStart = await helper.blogsInDb()
+    const blog = blogsAtStart[blogsAtStart.length-1]
+    const editedBlog = {
+      ...blog,
+      likes: 5
+    }
+
+    await api
+      .put(`/bloglist/api/blogs/${blog.id}`)
+      .send(editedBlog)
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+    
+    const blogsAtEnd = await helper.blogsInDb()
+    const lastBlog = blogsAtEnd[blogsAtEnd.length-1]
+
+    expect(blogsAtStart.length).toEqual(blogsAtEnd.length)
+    
+    expect(blog.likes).not.toEqual(lastBlog.likes)
+
+  })
 })
 
 afterAll(() => {
