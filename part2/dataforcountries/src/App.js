@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import DisplaySpecificCountry from './components/DisplaySpecificCountry';
 import DisplayCountries from './components/DisplayCountries';
+import { TextField } from '@material-ui/core'
 
 
 const App = () => {
@@ -43,11 +44,11 @@ const App = () => {
   }
   return (
     <div>
-      Search for a country<br></br>
-      <input value={filterCountry} onChange={handleChange}/>
-      <div>
+      <br></br>
+      <TextField variant="outlined" label="Search for a country" value={filterCountry} onChange={handleChange} ></TextField>
+    <div>
         {display()}
-      </div>
+    </div>
     </div>
   )
 }
