@@ -2,7 +2,8 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import DisplaySpecificCountry from './components/DisplaySpecificCountry';
 import DisplayCountries from './components/DisplayCountries';
-import { TextField } from '@material-ui/core'
+import { TextField, Grid } from '@material-ui/core'
+import 'typeface-roboto'
 
 
 const App = () => {
@@ -43,12 +44,11 @@ const App = () => {
     }
   }
   return (
-    <div>
-      <br></br>
-      <TextField variant="outlined" label="Search for a country" value={filterCountry} onChange={handleChange} ></TextField>
-    <div>
+    <div style={{padding: '20px'}}>
+      <Grid container direction="column" justify="center" alignItems="center" alignContent="center">
+        <TextField variant="outlined" label="Search for a country" value={filterCountry} onChange={handleChange}></TextField>
         {display()}
-    </div>
+      </Grid>
     </div>
   )
 }

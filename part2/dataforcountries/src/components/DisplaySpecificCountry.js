@@ -5,11 +5,15 @@ const Header = ({text}) => <h1>{text}</h1>
 const Content = ({text, value}) => <p>{text} {value}</p>
 const SubHead = ({text, extra}) => <h3>{text}{extra}</h3>
 
+const divStyle = {
+  textAlign: 'center',
+}
+
 const DisplaySpecificCountry = ({country}) =>  {
 
     const languageList = country.languages.map(language => <li key={language.name}>{language.name}</li>)
     return (
-      <div>
+      <div style={divStyle}>
         <Header text={country.name} />
         <Content text="capital" value={country.capital} />
         <Content text="population" value={country.population} />
