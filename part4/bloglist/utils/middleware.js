@@ -19,7 +19,9 @@ const errorHandler = (error, request, response, next) => {
 
 const tokenExtractor = (request, response, next) => {
   const token = request.get('authorization')
-  request.token = token.substring(7)
+  if (token) {
+    request.token = token.substring(7)
+  }
   next()
 }
 // const tokenExtractor = (request, response, next) => {
