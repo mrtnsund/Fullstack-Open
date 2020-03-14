@@ -99,7 +99,6 @@ const App = () => {
       .then(updatedPerson => {
 
         setPersons(persons => persons.filter(p => p.name !== personToBeUpdated.name))
-        console.log('persons1', persons)
 
         setPersons(persons => persons.concat(changedPerson))
       
