@@ -44,13 +44,13 @@ const App = () => {
     }
   }
   return (
-    <div>
-      <div className="container mx-auto py-5">
+    <div className="container mx-auto flex flex-col items-center">
+      <div className="py-5">
           <input 
           type="text" 
           value={filterCountry} 
           onChange={handleChange}
-          className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal text-center"
+          className="bg-white focus:outline-none focus:shadow-outline border border-gray-400 rounded-lg py-2 px-4 block appearance-none leading-normal text-center w-64 content-center placeholder-black"
           placeholder="Søk etter land"
           />
       </div>
