@@ -16,9 +16,6 @@ const Button = (props) => {
 }
 
 const DisplayVotes = (props) => {
-    console.log(
-        
-    )
     return (
         <div>
             {props.votes} votes
@@ -46,13 +43,13 @@ const App = (props) => {
     return (
         <div>
             <Header header="Anecdote of the day" />
-            <div>{props.anecdotes[selected]}</div>
+            <p>{props.anecdotes[selected]}</p>
             <DisplayVotes votes={votes[selected]} />
             <Button text="vote" event={voteFor}/>
             <Button text="next anecdote" event={() => setSelected(randomNumber())}/>
 
             <Header header="Anecdote with the most votes" />
-            <div>{props.anecdotes[mostVotes()]}</div>
+            <p>{props.anecdotes[mostVotes()]}</p>
             <DisplayVotes votes={votes[mostVotes()]} />
 
         </div>
