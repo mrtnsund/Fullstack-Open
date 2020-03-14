@@ -10,10 +10,10 @@ const Button = (props) => (
 const Statistic = (props) => {
     return (
         <>
-            <tr>
-                <td>{props.text}</td>
-                <td>{props.value}</td>
-            </tr>
+          <tr>
+            <td>{props.text}</td>
+            <td>{props.value}</td>
+          </tr>
         </>
     )
 }
@@ -51,14 +51,11 @@ const App = () => {
             <Button onClick={() => setGood(good + 1)} text="good"/>
             <Button onClick={() => setNeutral(neutral + 1)} text="neutral"/>
             <Button onClick={() => setBad(bad + 1)} text="bad"/>
-
             <Header header="statistics" />
             <Statistics 
-                good={good} neutral={neutral} bad={bad} 
-                total={total} avg={avg} positive={(good/total) * 100 + "%"} 
+              good={good} neutral={neutral} bad={bad} 
+              total={total} avg={avg} positive={(good/total) * 100 + "%"} 
             />
-
-
         </>
     )
 }
