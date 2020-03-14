@@ -15,11 +15,9 @@ const Weather = ({country}) => {
     var iconurl = "http://openweathermap.org/img/w/" + weather.icon + ".png";
     return (
         <div>
-            
-            <img src={iconurl} alt="icon" />
+            <img src={iconurl} alt="icon" className="inline" />
             <p>{weather.description}</p>
-
-            </div>
+        </div>
     )
 }
 export default Weather

@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import DisplaySpecificCountry from './components/DisplaySpecificCountry';
 import DisplayCountries from './components/DisplayCountries';
-import { TextField, Grid } from '@material-ui/core'
-import 'typeface-roboto'
+import './css/output.css'
+// import './css/debugger.css'
 
 
 const App = () => {
@@ -44,11 +44,21 @@ const App = () => {
     }
   }
   return (
-    <div style={{padding: '20px'}}>
-      <Grid container direction="column" justify="center" alignItems="center" alignContent="center">
-        <TextField variant="outlined" label="Search for a country" value={filterCountry} onChange={handleChange}></TextField>
+    <div>
+      <div className="container mx-auto py-5">
+          <input 
+          type="text" 
+          value={filterCountry} 
+          onChange={handleChange}
+          className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal text-center"
+          placeholder="Søk etter land"
+          />
+      </div>
+      <div className="container mx-auto">
+        <ul className="list-none text-center">
         {display()}
-      </Grid>
+        </ul>
+      </div>
     </div>
   )
 }
