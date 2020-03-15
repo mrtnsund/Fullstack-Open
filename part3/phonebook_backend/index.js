@@ -8,6 +8,7 @@ const cors = require('cors')
 const app = express()
 const Person = require('./models/person')
 
+let personList = null
 
 app.use(cors())
 app.use(express.static('build'))
@@ -17,9 +18,22 @@ app.use(bodyParser.json())
 morgan.token('body', (req) => JSON.stringify(req.body))
 app.use(morgan(':method :url :status :response-time ms :res[content-length] :body :req[content-length]'))
 // Database getters and setters
+app.get('/info', async (request, response) => {
+  await Person.find({}).then((persons) => {
+    personList = persons.map((person) => person.toJSON())
+  })
+  console.log(personList)
+  response.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' })
+  response.write(`<p>Phonebook has info for ${personList.length} people</p><br/>`)
+  response.write(new Date().toString())
+  response.end()
+})
+
 app.get('/api/persons', (req, res) => {
   Person.find({}).then((persons) => {
+    personList = persons.map((person) => person.toJSON())
     res.json(persons.map((person) => person.toJSON()))
+    console.log(personList)
   })
 })
 
