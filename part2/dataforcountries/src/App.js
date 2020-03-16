@@ -29,14 +29,13 @@ const App = () => {
 
     if (countriesToShow.length > 10){
       return (
-        <div>Too many matches, specify another filter</div>
+        <p>Too many matches, specify another filter</p>
       )
       
     } else if (countriesToShow.length === 1){
       return (
         <DisplaySpecificCountry country={countriesToShow[0]} />
       )
-
     } else {
       return (
         <DisplayCountries countries={countriesToShow} />
