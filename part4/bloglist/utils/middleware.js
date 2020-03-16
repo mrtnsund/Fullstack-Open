@@ -24,14 +24,6 @@ const tokenExtractor = (request, response, next) => {
   }
   next()
 }
-// const tokenExtractor = (request, response, next) => {
-//   const authorization = request.get('authorization')
-//   console.log(authorization)
-//   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-//     return authorization.substring(7)
-//   }
-//   next()
-// }
 
 module.exports = {
   unknownEndpoint, errorHandler, tokenExtractor,

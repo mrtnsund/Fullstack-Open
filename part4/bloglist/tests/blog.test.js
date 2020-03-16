@@ -58,9 +58,15 @@ describe('most votes', () => {
     expect(result.title).toBe('Morten med mest likes')
   })
 })
-// describe('most blogs', () => {
-//   test('most blogs has most blogs', () => {
-//     const result = listHelper.mostBlogs(listWithMoreBlogs)
-//     expect(result.author).toBe('Morten')
-//   })
-// })
+describe('most blogs', () => {
+  test('most blogs has most blogs', () => {
+    // TODO - ATM HARDCODED
+    const result = listHelper.mostBlogs(listWithMoreBlogs)
+    expect(result.author).toBe('Mikel')
+  })
+})
+describe('most likes', () => {
+  test('author with most likes', () => {
+
+  })
+})

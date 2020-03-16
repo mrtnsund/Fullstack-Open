@@ -2,16 +2,20 @@
 /* eslint-disable no-await-in-loop */
 const mongoose = require('mongoose')
 const supertest = require('supertest')
+const jwt = require('jsonwebtoken')
 const helper = require('./test_helper')
 const app = require('../app')
-const jwt = require('jsonwebtoken')
 
 
 const api = supertest(app)
 const Blog = require('../models/blog')
+const User = require('../models/user')
+
+let token = null
 
 beforeEach(async () => {
   await Blog.deleteMany({})
+  await User.deleteMany({})
 
   for (const blog of helper.initialBlogs) {
     const blogObject = new Blog(blog)
@@ -19,6 +23,11 @@ beforeEach(async () => {
   }
 })
 
+test('dummy returns one', () => {
+  const blogs = []
+  const result = helper.dummy(blogs)
+  expect(result).toEqual(1)
+})
 describe('content of blogs', () => {
   test('blogs are returned as json', async () => {
     await api
@@ -52,6 +61,22 @@ describe('content of blogs', () => {
 
 describe('functionality of backend', () => {
   test('a valid blog can be added', async () => {
+    await api
+      .post('/api/users')
+      .send({
+        username: 'test',
+        name: 'test',
+        passwordHash: 'test',
+      })
+      .expect(200)
+
+    const login = await api
+      .post('/api/login')
+      .send({
+        username: 'test',
+        password: 'test',
+      })
+    token = login.body.token
 
     const newBlog = {
       title: 'Funksjonsbloggen',
@@ -61,8 +86,8 @@ describe('functionality of backend', () => {
 
     await api
       .post('/api/blogs')
-      .set('Authorization', 'ffasfas')
       .send(newBlog)
+      .set('authorization', `bearer ${token}`)
       .expect(200)
       .expect('Content-Type', /application\/json/)
 
@@ -76,12 +101,30 @@ describe('functionality of backend', () => {
   })
 
   test('a blog without author is not added', async () => {
+    await api
+      .post('/api/users')
+      .send({
+        username: 'test',
+        name: 'test',
+        passwordHash: 'test',
+      })
+      .expect(200)
+
+    const login = await api
+      .post('/api/login')
+      .send({
+        username: 'test',
+        password: 'test',
+      })
+    token = login.body.token
+
     const newBlog = {
       url: 'vvv.vvv.v',
     }
 
     await api
       .post('/api/blogs')
+      .set('authorization', `bearer ${token}`)
       .send(newBlog)
       .expect(400)
 
@@ -102,26 +145,43 @@ describe('functionality of backend', () => {
     expect(viewedBlog.body).toEqual(blogToView)
   })
 
-  test('a blog can be deleted by id', async () => {
+  test('a blog can not be deleted by id by not owner', async () => {
     const blogsAtStart = await helper.blogsInDb()
-    const blogToDelete = blogsAtStart[0]
+    const blogToDelete = blogsAtStart[1]
 
     await api
       .delete(`/api/blogs/${blogToDelete.id}`)
-      .expect(204)
+      .set('authorization', `bearer ${token}`)
+      .expect(401)
 
     const blogsAtEnd = await helper.blogsInDb()
 
     expect(blogsAtEnd.length).toBe(
-      blogsAtStart.length - 1,
+      blogsAtStart.length,
     )
 
-    const ids = blogsAtEnd.map((b) => b.id)
-    expect(ids).not.toContain(blogToDelete.id)
+    // const ids = blogsAtEnd.map((b) => b.id)
+    // expect(ids).not.toContain(blogToDelete.id)
   })
 
   test('a blog without likes is initialized to zero', async () => {
     const blogsAtStart = await helper.blogsInDb()
+    await api
+      .post('/api/users')
+      .send({
+        username: 'test',
+        name: 'test',
+        passwordHash: 'test',
+      })
+      .expect(200)
+
+    const login = await api
+      .post('/api/login')
+      .send({
+        username: 'test',
+        password: 'test',
+      })
+    token = login.body.token
     const newBlog = {
       title: 'Hanna B',
       author: 'Hanna Brodersen',
@@ -131,6 +191,7 @@ describe('functionality of backend', () => {
     await api
       .post('/api/blogs')
       .send(newBlog)
+      .set('authorization', `bearer ${token}`)
       .expect(200)
       .expect('Content-Type', /application\/json/)
 
@@ -151,6 +212,7 @@ describe('functionality of backend', () => {
 
     await api
       .put(`/api/blogs/${blog.id}`)
+      .set('Authorization', token)
       .send(editedBlog)
       .expect(200)
       .expect('Content-Type', /application\/json/)

@@ -21,6 +21,9 @@ const initialBlogs = [
   },
 ]
 
+const dummy = (blogs) => 1
+
+
 const nonExistingId = async () => {
   const blog = new Blog({})
   await blog.save()
@@ -36,5 +39,5 @@ const blogsInDb = async () => {
 }
 
 module.exports = {
-  initialBlogs, nonExistingId, blogsInDb,
+  initialBlogs, nonExistingId, blogsInDb, dummy,
 }
