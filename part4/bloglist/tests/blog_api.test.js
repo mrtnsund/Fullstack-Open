@@ -50,7 +50,6 @@ describe('content of blogs', () => {
 
   test('a specific blog is within the returned blogs', async () => {
     const response = await api.get('/api/blogs')
-
     const blogs = response.body.map((b) => b.title);
 
     expect(blogs).toContain(
@@ -76,6 +75,7 @@ describe('functionality of backend', () => {
         username: 'test',
         password: 'test',
       })
+      .expect(200)
     token = login.body.token
 
     const newBlog = {
@@ -222,6 +222,51 @@ describe('functionality of backend', () => {
 
     expect(blogsAtStart.length).toEqual(blogsAtEnd.length)
     expect(blog.likes).not.toEqual(lastBlog.likes)
+  })
+
+  test('correct number of blogs is returned', async () => {
+    const response = await api.get('/api/blogs')
+    expect(response.length).toEqual(helper.blogsInDb().length)
+  })
+
+  test('a blog without title and url returns bad request', async () => {
+    await api
+      .post('/api/users')
+      .send({
+        username: 'test',
+        name: 'test',
+        passwordHash: 'test',
+      })
+      .expect(200)
+
+    const login = await api
+      .post('/api/login')
+      .send({
+        username: 'test',
+        password: 'test',
+      })
+    token = login.body.token
+
+    const newBlog = {
+      author: 'Morten',
+    }
+
+    await api
+      .post('/api/blogs')
+      .set('authorization', `bearer ${token}`)
+      .send(newBlog)
+      .expect(400)
+
+    const blogsAtEnd = await helper.blogsInDb()
+
+    expect(blogsAtEnd.length).toBe(helper.initialBlogs.length)
+  })
+})
+
+describe('blogposts has id', () => {
+  test('id is called id', async () => {
+    const list = await helper.blogsInDb()
+    expect(list[0].id).toBeDefined();
   })
 })
 
