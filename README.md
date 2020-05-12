@@ -1,6 +1,8 @@
 # Fullstack-Open
 Coursepage from Fullstack (University of Helsinki)
 
+Kurset går igjennom 9 ulike moduler som hver spesialiserer seg på ulike deler av fullstack. Tidsomfang for hele kurset er på 190 timer.
+
 Foreløpig status: Kurset er lagt til side for øyeblikket da jeg lærer meg Angular i jobbsammenheng
 
 * ~Part0~ - Introduksjon til web apps
