@@ -25,6 +25,7 @@ mongoose.connect(config.MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser
 mongoose.set('useCreateIndex', true)
 
 app.use(cors())
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.use('/api/blogs', blogsRouter)
