@@ -20,8 +20,10 @@ const App = () => {
   const blogFormRef = React.createRef()
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>
+    blogService.getAll().then(blogs => {
+      blogs.sort((a, b) => b.likes - a.likes);
       setBlogs( blogs )
+    }
     )  
   }, [])
 
@@ -79,7 +81,8 @@ const App = () => {
         setNotificationType(null)
       }, 5000)
     }
-  } 
+  }
+  
 
   const loginForm = () => (
     <form onSubmit={handleLogin}>
@@ -126,7 +129,6 @@ const App = () => {
           {blogs.map(blog =><Blog key={blog.id} blog={blog} />)}
         </div>
       }
-
 
 
 
