@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import blogService from '../services/blogs'
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, user }) => {
   const [visible, setVisible] = useState(false);
   const [likes, setLikes] = useState(blog.likes);
   const hideWhenVisible = { display: visible ? "none" : "" };
   const showWhenVisible = { display: visible ? "" : "none" };
-
+  const showDelete = { display: blog.user.username === user.username ? "": "none" }
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -23,6 +23,11 @@ const Blog = ({ blog }) => {
     blogService.addLike(blog);
     setLikes(blog.likes);
   }
+  const removeBlog = (blog) => {
+    if (window.confirm(`Do you really want to delete ${blog.title}?`)){
+      blogService.deleteBlog(blog.id)
+    }
+  }
   return (
     <div>
       <div style={{ ...blogStyle, ...hideWhenVisible }}>
@@ -34,7 +39,8 @@ const Blog = ({ blog }) => {
         <button onClick={expandBlog}>hide</button><br />
         {blog.url}<br />
         {likes} likes<button onClick={() => addLike(blog)}>like</button><br />
-        {blog.user.username}
+        {blog.user.username}<br />
+        <button style={showDelete} onClick={() => removeBlog(blog)}>remove</button>
       </div>
     </div>
   );

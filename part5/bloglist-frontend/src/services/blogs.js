@@ -21,10 +21,16 @@ const create = async newObject => {
   const response = await axios.post(baseUrl, newObject, config)
   return response.data
 }
-const addLike = (blog) => {
+const addLike = async (blog) => {
   blog.likes += 1;
-  const response = axios.put(baseUrl + `/${blog.id}`, blog)
+  const response = await axios.put(baseUrl + `/${blog.id}`, blog)
   return response.data;
 }
+const deleteBlog = async (id) => {
+  const config = {
+    headers: { Authorization: token },
+  }
+  await axios.delete(baseUrl + `/${id}`).then(res => console.log(res), config);
+}
 
-export default { getAll, getBlog, addLike, create, setToken }
+export default { getAll, getBlog, addLike, create, setToken, deleteBlog }
