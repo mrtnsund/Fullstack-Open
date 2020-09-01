@@ -52,3 +52,4 @@ const Blog = ({ blog, user }) => {
 }
 
 export default Blog
+
