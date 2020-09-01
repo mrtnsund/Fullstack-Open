@@ -39,7 +39,7 @@ const Blog = ({ blog, user }) => {
         {blog.title} by {blog.author}
         <button onClick={expandBlog}>view</button>
       </div>
-      <div style={{ ...blogStyle, ...showWhenVisible }}>
+      <div style={{ ...blogStyle, ...showWhenVisible }} className="togglableContent">
         {blog.title} by {blog.author}
         <button onClick={expandBlog}>hide</button><br />
         {blog.url}<br />
