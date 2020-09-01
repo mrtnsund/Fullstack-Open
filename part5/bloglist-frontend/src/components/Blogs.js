@@ -1,6 +1,6 @@
-import React from "react";
-import Blog from "./Blog";
-import PropTypes from 'prop-types'
+import React from 'react';
+import Blog from './Blog';
+import PropTypes from 'prop-types';
 
 const Blogs = ({ blogs, user }) => {
   return (
@@ -12,8 +12,8 @@ const Blogs = ({ blogs, user }) => {
   );
 };
 Blogs.propTypes = {
-    blogs: PropTypes.array.isRequired,
-    user: PropTypes.object.isRequired,
-}
+  blogs: PropTypes.array.isRequired,
+  user: PropTypes.object.isRequired,
+};
 
 export default Blogs;

@@ -1,16 +1,16 @@
-import React from 'react'
+import React from 'react';
 const Notification = ({ message, type }) => {
   if (message === null) {
-    return null
+    return null;
   }
-  let feedback = 'error'
+  let feedback = 'error';
   if (type === 'success') {
-    feedback = 'success'
+    feedback = 'success';
   }
   return (
     <div className={feedback}>
       {message}
     </div>
-  )
-}
-export default Notification
+  );
+};
+export default Notification;

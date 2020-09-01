@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
-import Blogs from "./components/Blogs";
-import Notification from "./components/Notification";
-import Toggleable from "./components/Togglable";
-import BlogForm from "./components/BlogForm";
-import LoginForm from "./components/LoginForm";
-import LoginInfo from "./components/LoginInfo";
-import Header from "./components/Header";
-import blogService from "./services/blogs";
-import loginService from "./services/login";
+import React, { useState, useEffect } from 'react';
+import Blogs from './components/Blogs';
+import Notification from './components/Notification';
+import Toggleable from './components/Togglable';
+import BlogForm from './components/BlogForm';
+import LoginForm from './components/LoginForm';
+import LoginInfo from './components/LoginInfo';
+import Header from './components/Header';
+import blogService from './services/blogs';
+import loginService from './services/login';
 
 const App = () => {
   const [notification, setNotification] = useState(null);
   const [notificationType, setNotificationType] = useState(null);
   const [blogs, setBlogs] = useState([]);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
 
   const blogFormRef = React.createRef();
@@ -27,7 +27,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem("loggedBlogUser");
+    const loggedUserJSON = window.localStorage.getItem('loggedBlogUser');
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
       setUser(user);
@@ -42,14 +42,14 @@ const App = () => {
       setNotification(
         `a new blog ${blogObject.title} by ${blogObject.author} was added`
       );
-      setNotificationType("success");
+      setNotificationType('success');
       setTimeout(() => {
         setNotification(null);
         setNotificationType(null);
       }, 5000);
     } catch (e) {
-      setNotification("something went wrong");
-      setNotificationType("error");
+      setNotification('something went wrong');
+      setNotificationType('error');
       setTimeout(() => {
         setNotification(null);
         setNotificationType(null);
@@ -64,14 +64,14 @@ const App = () => {
         username,
         password,
       });
-      window.localStorage.setItem("loggedBlogUser", JSON.stringify(user));
+      window.localStorage.setItem('loggedBlogUser', JSON.stringify(user));
       blogService.setToken(user.token);
       setUser(user);
-      setUsername("");
-      setPassword("");
+      setUsername('');
+      setPassword('');
     } catch (e) {
-      setNotification("wrong username or password");
-      setNotificationType("error");
+      setNotification('wrong username or password');
+      setNotificationType('error');
       setTimeout(() => {
         setNotification(null);
         setNotificationType(null);

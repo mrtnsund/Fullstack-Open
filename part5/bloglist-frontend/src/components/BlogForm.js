@@ -1,31 +1,31 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
 const BlogForm = ({ createBlog }) => {
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [url, setUrl] = useState('')
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
+  const [url, setUrl] = useState('');
 
   const handleChangeT = (event) => {
-    setTitle(event.target.value)
-  }
+    setTitle(event.target.value);
+  };
   const handleChangeA = (event) => {
-    setAuthor(event.target.value)
-  }
+    setAuthor(event.target.value);
+  };
   const handleChangeU = (event) => {
-    setUrl(event.target.value)
-  }
+    setUrl(event.target.value);
+  };
 
   const addBlog = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     createBlog({
       title: title,
       author: author,
       url: url,
-    })
-    setTitle('')
-    setAuthor('')
-    setUrl('')
-  }
+    });
+    setTitle('');
+    setAuthor('');
+    setUrl('');
+  };
 
   return (
     <div>
@@ -60,7 +60,7 @@ const BlogForm = ({ createBlog }) => {
         <button type="submit">create</button>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default BlogForm
+export default BlogForm;

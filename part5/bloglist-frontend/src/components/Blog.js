@@ -1,38 +1,38 @@
-import React, { useState } from 'react'
-import blogService from '../services/blogs'
-import PropTypes from 'prop-types'
+import React, { useState } from 'react';
+import blogService from '../services/blogs';
+import PropTypes from 'prop-types';
 
 const Blog = ({ blog, user }) => {
-  const [visible, setVisible] = useState(false)
-  const [likes, setLikes] = useState(blog.likes)
-  const hideWhenVisible = { display: visible ? 'none' : '' }
-  const showWhenVisible = { display: visible ? '' : 'none' }
-  const showDelete = { display: blog.user.username === user.username ? '': 'none' }
+  const [visible, setVisible] = useState(false);
+  const [likes, setLikes] = useState(blog.likes);
+  const hideWhenVisible = { display: visible ? 'none' : '' };
+  const showWhenVisible = { display: visible ? '' : 'none' };
+  const showDelete = { display: blog.user.username === user.username ? '': 'none' };
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
     border: 'solid',
     borderWidth: 1,
     marginBottom: 5,
-  }
+  };
   Blog.propTypes = {
     blog: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
-  }
+  };
 
   const expandBlog = () => {
-    setVisible(!visible)
-  }
+    setVisible(!visible);
+  };
 
   const addLike = (blog) => {
-    blogService.addLike(blog)
-    setLikes(blog.likes)
-  }
+    blogService.addLike(blog);
+    setLikes(blog.likes);
+  };
   const removeBlog = (blog) => {
     if (window.confirm(`Do you really want to delete ${blog.title}?`)){
-      blogService.deleteBlog(blog.id)
+      blogService.deleteBlog(blog.id);
     }
-  }
+  };
   return (
     <div>
       <div style={{ ...blogStyle, ...hideWhenVisible }}>
@@ -48,8 +48,8 @@ const Blog = ({ blog, user }) => {
         <button style={showDelete} onClick={() => removeBlog(blog)}>remove</button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Blog
+export default Blog;
 
