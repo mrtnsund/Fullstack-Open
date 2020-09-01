@@ -21,10 +21,10 @@ const App = () => {
 
   useEffect(() => {
     blogService.getAll().then(blogs => {
-      blogs.sort((a, b) => b.likes - a.likes);
+      blogs.sort((a, b) => b.likes - a.likes)
       setBlogs( blogs )
     }
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -74,7 +74,7 @@ const App = () => {
         setNotificationType(null)
       }, 5000)
     } catch (e) {
-      setNotification(`something went wrong`)
+      setNotification('something went wrong')
       setNotificationType('error')
       setTimeout(() => {
         setNotification(null)
@@ -82,26 +82,26 @@ const App = () => {
       }, 5000)
     }
   }
-  
+
 
   const loginForm = () => (
     <form onSubmit={handleLogin}>
       <div>
         <input
-        type="text"
-        value={username}
-        name="Username"
-        onChange={({ target }) => setUsername(target.value)}
-        placeholder="Enter username..."
+          type="text"
+          value={username}
+          name="Username"
+          onChange={({ target }) => setUsername(target.value)}
+          placeholder="Enter username..."
         />
       </div>
       <div>
         <input
-        type="password"
-        value={password}
-        name="Password"
-        onChange={({ target }) => setPassword(target.value)}
-        placeholder="Enter password..."
+          type="password"
+          value={password}
+          name="Password"
+          onChange={({ target }) => setPassword(target.value)}
+          placeholder="Enter password..."
         />
       </div>
       <button type="submit">login</button>
@@ -110,13 +110,13 @@ const App = () => {
 
   return (
     <div>
-      {user === null 
+      {user === null
         ?
         <div>
           <h2>log in to application</h2>
           <Notification message={notification} type={notificationType} />
           {loginForm()}
-        </div> 
+        </div>
         :
         <div>
           <h2>blogs</h2>
@@ -126,7 +126,7 @@ const App = () => {
           <Toggleable buttonLabel='new blog' ref={blogFormRef}>
             <BlogForm createBlog={addBlog} />
           </Toggleable>
-          {blogs.map(blog =><Blog key={blog.id} blog={blog} user={user} />)}
+          {blogs.map(blog => <Blog key={blog.id} blog={blog} user={user} />)}
         </div>
       }
 
