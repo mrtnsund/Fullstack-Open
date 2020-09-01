@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import blogService from '../services/blogs'
+import PropTypes from 'prop-types'
 
 const Blog = ({ blog, user }) => {
   const [visible, setVisible] = useState(false)
@@ -13,6 +14,10 @@ const Blog = ({ blog, user }) => {
     border: 'solid',
     borderWidth: 1,
     marginBottom: 5,
+  }
+  Blog.propTypes = {
+    blog: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
   }
 
   const expandBlog = () => {
