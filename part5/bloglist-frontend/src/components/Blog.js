@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import blogService from "../services/blogs";
 import PropTypes from "prop-types";
 
 const Blog = ({ blog, user, handleBlogLike, handleBlogRemove }) => {
@@ -13,6 +12,7 @@ const Blog = ({ blog, user, handleBlogLike, handleBlogRemove }) => {
     marginBottom: 5,
   };
   const showWhenVisibleStyle = { display: visible ? "none" : "" };
+  const hideWhenVisibleStyle = { display: visible ? "" : "none" };
 
   const showDelete = {
     display: blog.user.username === user.username ? "" : "none",
@@ -26,22 +26,21 @@ const Blog = ({ blog, user, handleBlogLike, handleBlogRemove }) => {
     <div style={blogStyle}>
       <div>
         {blog.title} by {blog.author}
-        <button onClick={expandBlog}>view</button>
+        <button onClick={expandBlog} style={hideWhenVisibleStyle}>
+          view
+        </button>
       </div>
-      <div
-        style={showWhenVisibleStyle}
-        className="togglableContent"
-      >
+      <div style={showWhenVisibleStyle} className="togglableContent">
         {blog.title} by {blog.author}
         <button onClick={expandBlog}>hide</button>
         <br />
         {blog.url}
         <br />
-        {blog.likes} likes<button onClick={ handleBlogLike }>like</button>
+        {blog.likes} likes<button onClick={e => handleBlogLike(blog.id, e)}>like</button>
         <br />
         {blog.user.username}
         <br />
-        <button style={showDelete} onClick={ handleBlogRemove }>
+        <button style={showDelete} onClick={e => handleBlogRemove(blog.id, e)}>
           remove
         </button>
       </div>
