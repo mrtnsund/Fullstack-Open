@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 const Blog = ({ blog, user, handleBlogLike, handleBlogRemove }) => {
   const [visible, setVisible] = useState(false);
+  const [currentLikes, setCurrentLikes] = useState(blog.likes);
 
   const blogStyle = {
     paddingTop: 10,
@@ -11,8 +12,8 @@ const Blog = ({ blog, user, handleBlogLike, handleBlogRemove }) => {
     borderWidth: 1,
     marginBottom: 5,
   };
-  const showWhenVisibleStyle = { display: visible ? "none" : "" };
-  const hideWhenVisibleStyle = { display: visible ? "" : "none" };
+  const showWhenVisibleStyle = { display: visible ? "" : "none" };
+  const hideWhenVisibleStyle = { display: visible ? "none" : "" };
 
   const showDelete = {
     display: blog.user.username === user.username ? "" : "none",
@@ -22,25 +23,30 @@ const Blog = ({ blog, user, handleBlogLike, handleBlogRemove }) => {
     setVisible(!visible);
   };
 
+  const handleBlogLikeWrapper = (e) => {
+    handleBlogLike(e);
+    setCurrentLikes(blog.likes);
+  }
+
   return (
-    <div style={blogStyle}>
-      <div>
+    <div>
+      <div style={{...blogStyle, ...hideWhenVisibleStyle}}>
         {blog.title} by {blog.author}
-        <button onClick={expandBlog} style={hideWhenVisibleStyle}>
+        <button onClick={expandBlog}>
           view
         </button>
       </div>
-      <div style={showWhenVisibleStyle} className="togglableContent">
+      <div style={{...blogStyle, ...showWhenVisibleStyle}} className="togglableContent">
         {blog.title} by {blog.author}
         <button onClick={expandBlog}>hide</button>
         <br />
         {blog.url}
         <br />
-        {blog.likes} likes<button onClick={e => handleBlogLike(blog.id, e)}>like</button>
+        {currentLikes} likes<button value={blog.id} onClick={(e) => handleBlogLikeWrapper(e)}>like</button>
         <br />
         {blog.user.username}
         <br />
-        <button style={showDelete} onClick={e => handleBlogRemove(blog.id, e)}>
+        <button style={showDelete} value={blog.id} onClick={handleBlogRemove}>
           remove
         </button>
       </div>

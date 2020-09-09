@@ -56,8 +56,9 @@ const App = () => {
       }, 5000);
     }
   };
-  const handleBlogLike = async (blogId, e) => {
-    e.preventDefault();
+  const handleBlogLike = async (e) => {
+    const blogId = e.target.value
+    console.log(blogId)
     const blog = blogs.find((b) => b.id === blogId);
     try {
       await blogService.addLike(blog);
@@ -71,12 +72,14 @@ const App = () => {
     }
   };
 
-  const handleBlogRemove = async (blogId, e) => {
-    e.preventDefault();
+  const handleBlogRemove = async (e) => {
+    const blogId = e.target.value;
     const blog = blogs.find((b) => b.id === blogId);
     if (window.confirm(`Do you really want to delete ${blog.title}?`)) {
       try {
-        await blogService.removeBlog(blog);
+        await blogService.deleteBlog(blog.id);
+        setNotification(`Deleted ${blog.title}`);
+        setNotificationType("success");
       } catch (error) {
         setNotification("something went wrong");
         setNotificationType("error");
