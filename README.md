@@ -1,7 +1,7 @@
 # Fullstack-Open
-Coursepage from Fullstack (University of Helsinki)
+Coursepage from Fullstack (University of Helsinki) https://fullstackopen.com/en/about
 
-Kurset går igjennom 9 ulike moduler som hver spesialiserer seg på ulike deler av fullstack. Tidsomfang for hele kurset er på 190 timer.
+Kurset går igjennom 9 ulike moduler som hver spesialiserer seg på ulike deler av fullstack. Tidsomfang for hele kurset er på 220 timer.
 
 Foreløpig status: Kurset er lagt til side for øyeblikket da jeg lærer meg Angular i jobbsammenheng
 
@@ -15,3 +15,5 @@ Foreløpig status: Kurset er lagt til side for øyeblikket da jeg lærer meg Ang
 * Part7 - Router, hooks og styling i React
 * Part8 - GraphQL
 * Part9 - Typescript
+* Part10 - React Native
+* Part11 - CI/CD
