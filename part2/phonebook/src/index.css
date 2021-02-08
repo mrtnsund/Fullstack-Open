@@ -16,3 +16,11 @@
   padding: 10px;
   margin-bottom: 10px;
 }
+
+@import "~normalize.css";
+@import "~@blueprintjs/core/lib/css/blueprint.css";
+@import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
+
+.input {
+  width: 200px;
+}
