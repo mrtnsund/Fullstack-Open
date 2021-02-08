@@ -1,27 +1,13 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
+import Button from './components/Button';
+import DisplayVotes from './components/DisplayVotes';
+import Header from './components/Header';
 
-const Header = ( {header} ) => <h1>{header}</h1>
+import randomNumber from './utils/RandomNumber';
 
-const randomNumber = () => { 
-    return (
-        Math.floor(Math.random() * 6)
-    )
-}
 
-const Button = (props) => {
-    return (
-        <button onClick={props.event}>{props.text}</button>
-    )
-}
 
-const DisplayVotes = (props) => {
-    return (
-        <div>
-            {props.votes} votes
-        </div>
-    )
-}
 
 
 const App = (props) => {

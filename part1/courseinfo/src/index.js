@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import './index.css'
 
 const Header = (props) => {
     return (
@@ -57,7 +58,7 @@ const App = () => {
 }
 
   return (
-    <div>
+    <div className="bp3-light container">
         <Header header={course.name} />
         <Content parts={course.parts} />
         <Total parts={course.parts} />
