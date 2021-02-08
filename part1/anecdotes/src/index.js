@@ -3,12 +3,7 @@ import ReactDOM from 'react-dom';
 import Button from './components/Button';
 import DisplayVotes from './components/DisplayVotes';
 import Header from './components/Header';
-
 import randomNumber from './utils/RandomNumber';
-
-
-
-
 
 const App = (props) => {
     const [selected, setSelected] = useState(0);
@@ -25,7 +20,7 @@ const App = (props) => {
             votes.indexOf(Math.max(...votes))
         )
     }
-
+     
     return (
         <div>
             <Header header="Anecdote of the day" />
@@ -33,7 +28,6 @@ const App = (props) => {
             <DisplayVotes votes={votes[selected]} />
             <Button text="vote" event={voteFor}/>
             <Button text="next anecdote" event={() => setSelected(randomNumber())}/>
-
             <Header header="Anecdote with the most votes" />
             <p>{props.anecdotes[mostVotes()]}</p>
             <DisplayVotes votes={votes[mostVotes()]} />

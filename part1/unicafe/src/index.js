@@ -1,10 +1,11 @@
+import { Button } from '@blueprintjs/core';
 import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
-
+import './index.css'
 const Header = (props) => <h1>{props.header}</h1>
 
-const Button = (props) => (
-        <button onClick={props.onClick}>{props.text}</button>
+const ButtonComponent = (props) => (
+        <Button intent="primary" onClick={props.onClick}>{props.text}</Button>
 )
     
 const Statistic = (props) => {
@@ -30,7 +31,7 @@ const Statistics = (props) => {
                     <Statistic text="neutral" value={props.neutral} />
                     <Statistic text="bad" value={props.bad} />
                     <Statistic text="total" value={props.total} />
-                    <Statistic text="average" value={props.avg} />
+                    <Statistic text="average" value={Number(props.avg).toFixed(2)} />
                     <Statistic text="positive" value={props.positive} />
                 </tbody>
             </table>
@@ -48,13 +49,13 @@ const App = () => {
     return (
         <>
             <Header header="give feedback" />
-            <Button onClick={() => setGood(good + 1)} text="good"/>
-            <Button onClick={() => setNeutral(neutral + 1)} text="neutral"/>
-            <Button onClick={() => setBad(bad + 1)} text="bad"/>
+            <ButtonComponent onClick={() => setGood(good + 1)} text="good"/>
+            <ButtonComponent onClick={() => setNeutral(neutral + 1)} text="neutral"/>
+            <ButtonComponent onClick={() => setBad(bad + 1)} text="bad"/>
             <Header header="statistics" />
             <Statistics 
               good={good} neutral={neutral} bad={bad} 
-              total={total} avg={avg} positive={(good/total) * 100 + "%"} 
+              total={total} avg={avg} positive={Number((good/total) * 100).toFixed(2) + "%"} 
             />
         </>
     )
