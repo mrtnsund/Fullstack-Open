@@ -50,7 +50,7 @@ const App = () => {
           value={filterCountry} 
           onChange={handleChange}
           className="bg-white focus:outline-none focus:shadow-outline border border-gray-400 rounded-lg py-2 px-4 block appearance-none leading-normal text-center w-64 content-center placeholder-black"
-          placeholder="Søk etter land"
+          placeholder="Search countries..."
           />
       </div>
       <div className="container mx-auto">
