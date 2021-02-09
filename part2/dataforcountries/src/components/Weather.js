@@ -12,7 +12,7 @@ const Weather = ({country}) => {
             setWeather(response.data.weather[0])
         })
     }, [country])
-    var iconurl = "http://openweathermap.org/img/w/" + weather.icon + ".png";
+    var iconurl = "https://openweathermap.org/img/wn/" + weather.icon + ".png";
     return (
         <div>
             <img src={iconurl} alt="icon" className="inline" />
