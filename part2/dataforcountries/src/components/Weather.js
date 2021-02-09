@@ -1,13 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
-import {weatherToken} from './Token'
 
 const Weather = ({country}) => {
     const [weather, setWeather] = useState([])
 
     useEffect(() => {
         axios
-        .get("https://api.openweathermap.org/data/2.5/weather?q="+country.capital+"&APPID="+weatherToken+"&units=metric")
+        .get("https://api.openweathermap.org/data/2.5/weather?q="+country.capital+"&APPID="+process.env.REACT_APP_WEATHER_TOKEN+"&units=metric")
         .then(response => {
             setWeather(response.data.weather[0])
         })
